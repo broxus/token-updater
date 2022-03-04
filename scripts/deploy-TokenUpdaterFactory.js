@@ -71,11 +71,11 @@ async function main() {
       keyPair
     });
 
-  console.log(`Transfer ownership for TokenUpdaterFactory`);
+  console.log(`Renounce ownership for TokenUpdaterFactory`);
   await Account.runTarget({
     contract: TokenUpdaterFactory,
-    method: 'transferOwner',
-    params: {newOwner: newOwner, answerId: '0'},
+    method: 'renounceOwnership',
+    params: {},
     value: locklift.utils.convertCrystal(1, 'nano'),
     keyPair: keyPair
   });

@@ -16,7 +16,6 @@ contract TokenUpdaterFactory {
     uint32 static randomNonce_;
 
     address owner_;
-    address pendingOwner_;
 
     TvmCell rootCode_;
     TvmCell walletCode_;
@@ -42,10 +41,6 @@ contract TokenUpdaterFactory {
 
     function owner() external view responsible returns (address) {
         return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } owner_;
-    }
-
-    function pendingOwner() external view responsible returns (address) {
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } pendingOwner_;
     }
 
     function rootCode() external view responsible returns (TvmCell) {
@@ -131,7 +126,7 @@ contract TokenUpdaterFactory {
             value: TokenUpdaterGas.SUCCESS_CALLBACK,
             flag: MsgFlag.SENDER_PAYS_FEES,
             bounce: false
-        }(oldRoot, newRoot, updater);
+        }(callId, oldRoot, newRoot, updater);
 
         ITransferableOwnership(newRoot).transferOwnership{
             value: 0,
@@ -139,19 +134,9 @@ contract TokenUpdaterFactory {
         }(updater, remainingGasTo, emptyMap);
     }
 
-    function transferOwner(address newOwner) external responsible onlyOwner returns(address) {
-        pendingOwner_ = newOwner;
-
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } pendingOwner_;
-    }
-
-    function acceptOwner() external responsible returns(address) {
-        require(msg.sender.value != 0 && msg.sender == pendingOwner_, TokenUpdaterErrors.NOT_PENDING_OWNER);
-
-        owner_ = pendingOwner_;
-        pendingOwner_ = address(0);
-
-        return { value: 0, bounce: false, flag: MsgFlag.REMAINING_GAS } owner_;
+    function renounceOwnership() external onlyOwner {
+        owner_ = address(0);
+        msg.sender.transfer({value: 0, flag: MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS });
     }
 
     function setRootCode(TvmCell _rootCode) public onlyOwner {
@@ -173,24 +158,4 @@ contract TokenUpdaterFactory {
         updaterCode_ = _updaterCode;
         msg.sender.transfer({value: 0, flag: MsgFlag.REMAINING_GAS + MsgFlag.IGNORE_ERRORS });
     }
-
-    function upgrade(TvmCell code) public onlyOwner {
-        tvm.rawReserve(TokenUpdaterGas.TARGET_BALANCE, 2);
-
-        TvmBuilder builder;
-
-        builder.store(rootCode_);
-        builder.store(walletCode_);
-        builder.store(walletPlatformCode_);
-        builder.store(updaterCode_);
-        builder.store(owner_);
-        builder.store(pendingOwner_);
-
-        tvm.setcode(code);
-        tvm.setCurrentCode(code);
-
-        onCodeUpgrade(builder.toCell());
-    }
-
-    function onCodeUpgrade(TvmCell upgradeData) private {}
 }

@@ -4,7 +4,9 @@
   "description": "Smart-contracts for update tokens to new standard",
   "main": "index.js",
   "scripts": {
-    "test": "npx locklift test --config locklift.config.js --network local"
+    "build": "npx locklift build --config locklift.config.js",
+    "test": "npx locklift test --config locklift.config.js --network local --disable-build",
+    "deploy": "npx locklift run --config locklift.config.js --network local --script scripts/deploy-TokenUpdaterFactory.js --disable-build"
   },
   "keywords": [
     "tip-3",

@@ -140,6 +140,15 @@ describe('Test Tokens updater', async function() {
         keyPair
       });
 
+      logger.log(`TokenUpdaterFactory.renounceOwnership`);
+      await Account.runTarget({
+        contract: Factory,
+        method: 'renounceOwnership',
+        params: {},
+        value: locklift.utils.convertCrystal(1, 'nano'),
+        keyPair: keyPair
+      });
+
       logger.log(`Deploying OldRoot`);
       await locklift.giver.deployContract({
         contract: OldRoot,

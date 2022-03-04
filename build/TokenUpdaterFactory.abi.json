@@ -21,15 +21,6 @@
 			]
 		},
 		{
-			"name": "pendingOwner",
-			"inputs": [
-				{"name":"answerId","type":"uint32"}
-			],
-			"outputs": [
-				{"name":"value0","type":"address"}
-			]
-		},
-		{
 			"name": "rootCode",
 			"inputs": [
 				{"name":"answerId","type":"uint32"}
@@ -82,22 +73,10 @@
 			]
 		},
 		{
-			"name": "transferOwner",
+			"name": "renounceOwnership",
 			"inputs": [
-				{"name":"answerId","type":"uint32"},
-				{"name":"newOwner","type":"address"}
 			],
 			"outputs": [
-				{"name":"value0","type":"address"}
-			]
-		},
-		{
-			"name": "acceptOwner",
-			"inputs": [
-				{"name":"answerId","type":"uint32"}
-			],
-			"outputs": [
-				{"name":"value0","type":"address"}
 			]
 		},
 		{
@@ -131,14 +110,6 @@
 			],
 			"outputs": [
 			]
-		},
-		{
-			"name": "upgrade",
-			"inputs": [
-				{"name":"code","type":"cell"}
-			],
-			"outputs": [
-			]
 		}
 	],
 	"data": [
@@ -162,7 +133,6 @@
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"randomNonce_","type":"uint32"},
 		{"name":"owner_","type":"address"},
-		{"name":"pendingOwner_","type":"address"},
 		{"name":"rootCode_","type":"cell"},
 		{"name":"walletCode_","type":"cell"},
 		{"name":"walletPlatformCode_","type":"cell"},
