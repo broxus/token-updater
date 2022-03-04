@@ -1,0 +1,106 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_owner","type":"address"},
+				{"name":"remainingGasTo","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transferTokenOwnership",
+			"inputs": [
+				{"name":"newOwner","type":"address"},
+				{"name":"remainingGasTo","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transferOwnership",
+			"inputs": [
+				{"name":"newOwner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "renounceOwnership",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "owner",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"owner","type":"address"}
+			]
+		},
+		{
+			"name": "factory",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"factory","type":"address"}
+			]
+		},
+		{
+			"name": "oldRoot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"oldRoot","type":"address"}
+			]
+		},
+		{
+			"name": "newRoot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"newRoot","type":"address"}
+			]
+		},
+		{
+			"name": "upgradedCount",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"upgradedCount","type":"uint128"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"factory","type":"address"},
+		{"key":2,"name":"oldRoot","type":"address"},
+		{"key":3,"name":"newRoot","type":"address"}
+	],
+	"events": [
+		{
+			"name": "OwnershipTransferred",
+			"inputs": [
+				{"name":"previousOwner","type":"address"},
+				{"name":"newOwner","type":"address"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"owner","type":"address"},
+		{"name":"factory","type":"address"},
+		{"name":"oldRoot","type":"address"},
+		{"name":"newRoot","type":"address"},
+		{"name":"upgradedCount","type":"uint128"}
+	]
+}
