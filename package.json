@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx locklift build --config locklift.config.js",
     "test": "npx locklift test --config locklift.config.js --network local --disable-build",
-    "deploy": "npx locklift run --config locklift.config.js --network local --script scripts/deploy-TokenUpdaterFactory.js --disable-build"
+    "deploy": "npx locklift run --config locklift.config.js --network local --script scripts/deploy-TokenUpdaterFactory.js --disable-build",
+    "deploy-prod": "npx locklift run --config locklift.config.js --network prod --script scripts/deploy-TokenUpdaterFactory.js --disable-build"
   },
   "keywords": [
     "tip-3",
