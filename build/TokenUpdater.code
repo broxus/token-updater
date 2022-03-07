@@ -22,21 +22,21 @@ ENDS
 CTOS
 LDMSGADDR
 ENDS
-.loc ../contracts/TokenUpdater.sol, 27
+.loc ../contracts/TokenUpdater.sol, 31
 GETGLOB 9
 GETGLOB 11
 SDEQ
 PUSHCONT {
-	.loc ../contracts/TokenUpdater.sol, 28
+	.loc ../contracts/TokenUpdater.sol, 32
 	PUSHINT 1000000000
 	PUSHINT 0
 	RAWRESERVE
-	.loc ../contracts/TokenUpdater.sol, 29
+	.loc ../contracts/TokenUpdater.sol, 33
 	OVER
 	CALLREF {
 		CALL $setOwnership_internal_macro$
 	}
-	.loc ../contracts/TokenUpdater.sol, 30
+	.loc ../contracts/TokenUpdater.sol, 34
 	DUP
 	NEWC
 	STSLICECONST x42_
@@ -47,7 +47,7 @@ PUSHCONT {
 	PUSHINT 128
 }
 PUSHCONT {
-	.loc ../contracts/TokenUpdater.sol, 32
+	.loc ../contracts/TokenUpdater.sol, 36
 	DUP
 	NEWC
 	STSLICECONST x42_
@@ -77,7 +77,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/TokenUpdater.sol, 36
+.loc ../contracts/TokenUpdater.sol, 40
 OVER
 PUSHCONT {
 	LDREF
@@ -106,11 +106,11 @@ GETGLOB 9
 GETGLOB 10
 SDEQ
 THROWIFNOT 1101
-.loc ../contracts/TokenUpdater.sol, 37
+.loc ../contracts/TokenUpdater.sol, 41
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/TokenUpdater.sol, 38
+.loc ../contracts/TokenUpdater.sol, 42
 NEWDICT
 XCHG S2
 GETGLOB 13
@@ -142,59 +142,65 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/TokenUpdater.sol, 47
+.loc ../contracts/TokenUpdater.sol, 51
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/TokenUpdater.sol, 48
+.loc ../contracts/TokenUpdater.sol, 52
 DEPTH
 ADDCONST -4
 PICK
-.loc ../contracts/TokenUpdater.sol, 49
+.loc ../contracts/TokenUpdater.sol, 53
 DUP
 LDU 32
 POP S2
-.loc ../contracts/TokenUpdater.sol, 50
+.loc ../contracts/TokenUpdater.sol, 54
 PUSHINT 1019809854
 EQUAL
 THROWIFNOT 200
-.loc ../contracts/TokenUpdater.sol, 51
+.loc ../contracts/TokenUpdater.sol, 55
 DUP
 LDU 128
 LDU 256
 LDMSGADDR
 POP S4
 NIP
-.loc ../contracts/TokenUpdater.sol, 53
+.loc ../contracts/TokenUpdater.sol, 57
 PUSH S2
 LDREF
 POP S4
-.loc ../contracts/TokenUpdater.sol, 54
+.loc ../contracts/TokenUpdater.sol, 58
 PUSH S3
 LDREFRTOS
 NIP
 POP S4
-.loc ../contracts/TokenUpdater.sol, 55
+.loc ../contracts/TokenUpdater.sol, 59
 ROLL 3
 LDMSGADDR
 DROP
-.loc ../contracts/TokenUpdater.sol, 57
+.loc ../contracts/TokenUpdater.sol, 61
 GETGLOB 12
 GETGLOB 9
 SDEQ
 PUSHCONT {
-	.loc ../contracts/TokenUpdater.sol, 58
-	GETGLOB 14
+	.loc ../contracts/TokenUpdater.sol, 62
+	GETGLOB 15
 	PUSH S4
 	ADD
 	UFITS 128
-	SETGLOB 14
-	.loc ../contracts/TokenUpdater.sol, 60
+	SETGLOB 15
+	.loc ../contracts/TokenUpdater.sol, 64
 	OVER
 	TRUE
 	PUSH S2
 	PUSHINT 100000000
 	PUSH2 S6, S7
+	GETGLOB 14
+	FIRST
+	GETGLOB 14
+	SECOND
+	MULDIV
+	UFITS 128
 	GETGLOB 13
 	NEWC
 	STSLICECONST x62_
@@ -216,7 +222,7 @@ PUSHCONT {
 	STBREFR
 }
 PUSHCONT {
-	.loc ../contracts/TokenUpdater.sol, 69
+	.loc ../contracts/TokenUpdater.sol, 73
 	DUP
 	NEWC
 	STSLICECONST x62_
@@ -368,7 +374,13 @@ ENDS
 CTOS
 LDMSGADDR
 LDU 128
+LDU 128
+ROTREV
+PAIR
+SWAP
+LDU 128
 ENDS
+SETGLOB 15
 SETGLOB 14
 SETGLOB 13
 SETGLOB 12
@@ -420,7 +432,24 @@ PUSHCONT {
 		}
 	}
 	IFNOT
+	PUSHINT 4
+	PUSH S5
+	PUSHINT 64
+	DICTUGET
+IFREFELSEREF
+{
+		LDU 128
+		LDU 128
+		ENDS
+		PAIR
+}
+{
+		PUSHINT 0
+		DUP
+		PAIR
+}
 	PUSHINT 0
+	SETGLOB 15
 	SETGLOB 14
 	SETGLOB 13
 	SETGLOB 12
@@ -439,6 +468,7 @@ IFREFELSE {
 }
 
 .macro c7_to_c4
+GETGLOB 15
 GETGLOB 14
 GETGLOB 13
 GETGLOB 12
@@ -451,15 +481,20 @@ STU 256
 STU 64
 STONE
 STSLICE
+ROLLREV 5
+NEWC
+STSLICE
 ROLLREV 4
 NEWC
 STSLICE
 ROLLREV 3
 NEWC
 STSLICE
-ROTREV
-NEWC
-STSLICE
+SWAP
+UNPAIR
+XCHG S2
+STU 128
+STU 128
 STU 128
 STBREFR
 STBREFR
@@ -653,13 +688,37 @@ PUSHCONT {
 IF
 THROW 0
 
-.macro upgradedCount
+.macro ratio
 DROP
 ENDS
 CALLREF {
 	CALL $c4_to_c7$
 }
 GETGLOB 14
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000cc26d5f2
+	NEWC
+	STSLICE
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 128
+	STU 128
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro upgradedCount
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 15
 OVER
 PUSHCONT {
 	PUSHSLICE xc0000000000000000000000000aadd5ff5
@@ -704,7 +763,7 @@ IFJMPREF {
 	}
 }
 DUP
-PUSHINT 1729444094
+PUSHINT 1594609630
 LEQ
 IFJMPREF {
 	DUP
@@ -712,6 +771,12 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $constructor$
+	}
+	DUP
+	PUSHINT 1277613554
+	EQUAL
+	IFJMPREF {
+		CALL $ratio$
 	}
 	DUP
 	PUSHINT 1393838242
@@ -725,17 +790,22 @@ IFJMPREF {
 	IFJMPREF {
 		CALL $owner$
 	}
+}
+DUP
+PUSHINT 1816154505
+LEQ
+IFJMPREF {
 	DUP
 	PUSHINT 1729444094
 	EQUAL
 	IFJMPREF {
 		CALL $renounceOwnership$
 	}
-}
-DUP
-PUSHINT 1816154505
-EQUAL
-IFJMPREF {
-	CALL $transferTokenOwnership$
+	DUP
+	PUSHINT 1816154505
+	EQUAL
+	IFJMPREF {
+		CALL $transferTokenOwnership$
+	}
 }
 

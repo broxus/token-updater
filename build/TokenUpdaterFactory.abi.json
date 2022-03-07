@@ -65,6 +65,7 @@
 				{"name":"name","type":"string"},
 				{"name":"symbol","type":"string"},
 				{"name":"decimals","type":"uint8"},
+				{"components":[{"name":"numerator","type":"uint128"},{"name":"denominator","type":"uint128"}],"name":"ratio","type":"tuple"},
 				{"name":"burnByRootDisabled","type":"bool"},
 				{"name":"burnPaused","type":"bool"},
 				{"name":"remainingGasTo","type":"address"}

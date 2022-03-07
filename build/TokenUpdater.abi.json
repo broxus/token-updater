@@ -69,6 +69,14 @@
 			]
 		},
 		{
+			"name": "ratio",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"numerator","type":"uint128"},{"name":"denominator","type":"uint128"}],"name":"ratio","type":"tuple"}
+			]
+		},
+		{
 			"name": "upgradedCount",
 			"inputs": [
 			],
@@ -80,7 +88,8 @@
 	"data": [
 		{"key":1,"name":"factory","type":"address"},
 		{"key":2,"name":"oldRoot","type":"address"},
-		{"key":3,"name":"newRoot","type":"address"}
+		{"key":3,"name":"newRoot","type":"address"},
+		{"components":[{"name":"numerator","type":"uint128"},{"name":"denominator","type":"uint128"}],"key":4,"name":"ratio","type":"tuple"}
 	],
 	"events": [
 		{
@@ -101,6 +110,7 @@
 		{"name":"factory","type":"address"},
 		{"name":"oldRoot","type":"address"},
 		{"name":"newRoot","type":"address"},
+		{"components":[{"name":"numerator","type":"uint128"},{"name":"denominator","type":"uint128"}],"name":"ratio","type":"tuple"},
 		{"name":"upgradedCount","type":"uint128"}
 	]
 }

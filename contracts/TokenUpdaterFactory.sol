@@ -11,7 +11,9 @@ import "./libraries/TokenUpdaterGas.sol";
 import "./TokenUpdater.sol";
 import "./interfaces/ITokenUpdaterCreatedCallback.sol";
 
-contract TokenUpdaterFactory {
+import "./structures/NumeratorDenominatorStructure.sol";
+
+contract TokenUpdaterFactory is NumeratorDenominatorStructure {
 
     uint32 static randomNonce_;
 
@@ -66,6 +68,7 @@ contract TokenUpdaterFactory {
         string name,
         string symbol,
         uint8 decimals,
+        NumeratorDenominator ratio,
         bool burnByRootDisabled,
         bool burnPaused,
         address remainingGasTo
@@ -108,7 +111,8 @@ contract TokenUpdaterFactory {
             varInit: {
                 factory: address(this),
                 oldRoot: oldRoot,
-                newRoot: newRoot
+                newRoot: newRoot,
+                ratio: ratio
             },
             pubkey: 0,
             code: updaterCode_

@@ -11,15 +11,19 @@ import "ton-eth-bridge-token-contracts/contracts/interfaces/ITransferableOwnersh
 import "./libraries/TokenUpdaterErrors.sol";
 import "./libraries/TokenUpdaterGas.sol";
 
+import "./structures/NumeratorDenominatorStructure.sol";
+
 import '@broxus/contracts/contracts/access/InternalOwner.sol';
 import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
 
-contract TokenUpdater is InternalOwner {
+contract TokenUpdater is InternalOwner, NumeratorDenominatorStructure {
 
     address static public factory;
 
     address static public oldRoot;
     address static public newRoot;
+
+    NumeratorDenominator static public ratio;
 
     uint128 public upgradedCount;
 
@@ -58,7 +62,7 @@ contract TokenUpdater is InternalOwner {
             upgradedCount += tokens;
 
             ITokenRoot(newRoot).mint{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(
-                tokens,
+                math.muldiv(uint128(tokens), uint128(ratio.numerator), uint128(ratio.denominator)),
                 sender_address,
                 TokenUpdaterGas.DEPLOY_WALLET_GRAMS,
                 send_gas_to,

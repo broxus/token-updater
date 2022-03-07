@@ -177,7 +177,11 @@ describe('Test Tokens updater', async function() {
           updaterOwner: Account.address,
           name: 'New token',
           symbol: 'NEW',
-          decimals: 9,
+          decimals: 18,
+          ratio: {
+            numerator: '1000000000',
+            denominator: '1'
+          },
           burnByRootDisabled: true,
           burnPaused: false,
           remainingGasTo: Account.address
@@ -260,7 +264,7 @@ describe('Test Tokens updater', async function() {
 
       logger.log(`AccountOldWallet.burnByOwner`);
 
-      await Account.runTarget({
+      const tx = await Account.runTarget({
         contract: AccountOldWallet,
         method: 'burnByOwner',
         params: {
@@ -274,19 +278,19 @@ describe('Test Tokens updater', async function() {
         keyPair
       });
 
+      logger.log(`txId: ${tx.transaction.id}`);
+
       const oldBalance = (await AccountOldWallet.call({ method: 'balance', params: { _answer_id: 0 } })).toString();
       const newBalance = (await AccountNewWallet.call({ method: 'balance', params: {} })).toString();
       const upgradedCount = (await Updater.call({ method: 'upgradedCount', params: {} })).toString();
 
       logger.log(`Account balance: 
       OLD = ${new BigNumber(oldBalance).shiftedBy(-9).toFixed()}, 
-      NEW = ${new BigNumber(newBalance).shiftedBy(-9).toFixed()}`);
+      NEW = ${new BigNumber(newBalance).shiftedBy(-18).toFixed()}`);
 
-      expect(oldBalance).to.be.equal(
-          locklift.utils.convertCrystal(50, 'nano'),
+      expect(new BigNumber(oldBalance).shiftedBy(-9).toFixed()).to.be.equal('50',
           'Bad AccountOldWallet balance');
-      expect(newBalance).to.be.equal(
-          locklift.utils.convertCrystal(50, 'nano'),
+      expect(new BigNumber(newBalance).shiftedBy(-18).toFixed()).to.be.equal('50',
           'Bad AccountNewWallet balance');
       expect(upgradedCount).to.be.equal(
           locklift.utils.convertCrystal(50, 'nano'),
