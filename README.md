@@ -5,7 +5,7 @@ Smart contracts to update old TIP-3 standard tokens to the new TIP-3.1 standard.
 
 Mainnet address: `0:ede0eaab4f24e2bdb3224fcabf4fa4507d4df5b66ca0d6e63321dd448dde9e23`
 
-ABI: [TokenUpdaterFactory.abi.json](https://github.com/broxus/token-updater/blob/master/build/TokenUpdaterFactory.abi.json)
+ABI: [TokenUpdaterFactory.abi.json](https://github.com/broxus/token-updater/blob/change_decimals/build/TokenUpdaterFactory.abi.json)
 
 ## How it works:
 
